@@ -1,8 +1,3 @@
-Aquí tienes un `README.md` profesional y claro para tu paquete `RepositoryFactory.For.EntityFramework`, con ejemplos de uso detallados **con** y **sin** `ServiceCollectionExtensions`:
-
----
-
-````markdown
 # RepositoryFactory.For.EntityFramework
 
 A lightweight, generic repository abstraction over Entity Framework Core supporting both synchronous and asynchronous operations. Provides optional integration with `IServiceCollection`.
