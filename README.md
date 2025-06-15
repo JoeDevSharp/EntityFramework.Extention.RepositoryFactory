@@ -129,10 +129,3 @@ RepositoryFactory.EntityFramework/
 ├── LICENSE
 ├── RepositoryFactory.EntityFramework.csproj
 ```
-
----
-
-## 🔒 License
-
-This project is licensed under the MIT License.
-
