@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.14.36203.30
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JoeDevSharp.RepositoryFactory.EntityFramework", "JoeDevSharp.RepositoryFactory.EntityFramework\JoeDevSharp.RepositoryFactory.EntityFramework.csproj", "{1BEC4465-003E-7D9A-E681-4AED9B9C2255}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExempleConsoleApp", "ExempleConsoleApp\ExempleConsoleApp.csproj", "{05D7ECA1-5D81-49DE-937E-3E3BC37D5EE1}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{1BEC4465-003E-7D9A-E681-4AED9B9C2255}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1BEC4465-003E-7D9A-E681-4AED9B9C2255}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1BEC4465-003E-7D9A-E681-4AED9B9C2255}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1BEC4465-003E-7D9A-E681-4AED9B9C2255}.Release|Any CPU.Build.0 = Release|Any CPU
+		{05D7ECA1-5D81-49DE-937E-3E3BC37D5EE1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{05D7ECA1-5D81-49DE-937E-3E3BC37D5EE1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{05D7ECA1-5D81-49DE-937E-3E3BC37D5EE1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{05D7ECA1-5D81-49DE-937E-3E3BC37D5EE1}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {45DD7CCD-DAD7-4EFE-BDC1-D1504FD45555}
+	EndGlobalSection
+EndGlobal
