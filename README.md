@@ -6,11 +6,11 @@ A lightweight, generic repository abstraction over Entity Framework Core support
 
 ## 📦 Features
 
-- Generic repository pattern for any EF `DbContext`
-- Supports **CRUD**, pagination, includes, and expression filters
-- Both **sync** and **async** APIs
-- Defensive programming with exception handling
-- Optional integration via **DI extensions**
+* Generic repository pattern for any EF `DbContext`
+* Supports **CRUD**, pagination, includes, and expression filters
+* Both **sync** and **async** APIs
+* Defensive programming with exception handling
+* Optional integration via **DI extensions**
 
 ---
 
@@ -18,7 +18,7 @@ A lightweight, generic repository abstraction over Entity Framework Core support
 
 ```bash
 dotnet add package RepositoryFactory.EntityFramework
-````
+```
 
 ---
 
@@ -130,18 +130,13 @@ This ensures the repository correctly identifies the entity type and supports ba
 
 ---
 
-## 📁 Project Structure
+## 🌐 Database Provider Compatibility
 
-```
-RepositoryFactory.EntityFramework/
-├── Interfaces/
-│   └── IGenericRepository.cs
-├── Core/
-│   ├── GenericRepository.cs
-│   └── RepositoryFactory.cs
-├── Extensions/
-│   └── ServiceCollectionExtensions.cs
-├── README.md
-├── LICENSE
-├── RepositoryFactory.EntityFramework.csproj
-```
+`RepositoryFactory.EntityFramework` is compatible with the following Entity Framework Core providers:
+
+* **SQL Server**
+* **SQLite**
+* **MySQL**
+* **PostgreSQL**
+
+Make sure the correct EF Core provider NuGet package is installed and properly configured in your application.
