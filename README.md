@@ -1,4 +1,4 @@
-# RepositoryFactory.For.EntityFramework
+# RepositoryFactory.EntityFramework
 
 A lightweight, generic repository abstraction over Entity Framework Core supporting both synchronous and asynchronous operations. Provides optional integration with `IServiceCollection`.
 
@@ -17,7 +17,7 @@ A lightweight, generic repository abstraction over Entity Framework Core support
 ## 🛠 Installation
 
 ```bash
-dotnet add package RepositoryFactory.For.EntityFramework
+dotnet add package RepositoryFactory.EntityFramework
 ````
 
 ---
@@ -117,7 +117,7 @@ public class User : IEntityBase
 ## 📁 Project Structure
 
 ```
-RepositoryFactory.For.EntityFramework/
+RepositoryFactory.EntityFramework/
 ├── Interfaces/
 │   └── IGenericRepository.cs
 ├── Core/
@@ -127,7 +127,7 @@ RepositoryFactory.For.EntityFramework/
 │   └── ServiceCollectionExtensions.cs
 ├── README.md
 ├── LICENSE
-├── RepositoryFactory.For.EntityFramework.csproj
+├── RepositoryFactory.EntityFramework.csproj
 ```
 
 ---
