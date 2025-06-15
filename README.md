@@ -225,4 +225,209 @@ This straightforward approach enables quick adoption of the repository pattern w
 * **PostgreSQL**
 
 Make sure the correct EF Core provider NuGet package is installed and properly configured in your application.
+---
+Por supuesto, aquí tienes la documentación de los métodos con ejemplos de uso para cada uno, en inglés y con un estilo profesional y claro:
+
+---
+
+## `GenericRepository<E>` Method Documentation with Usage Examples
+
+This generic repository provides synchronous and asynchronous CRUD operations, filtering, pagination, and eager loading over an EF Core `DbContext`.
+
+---
+
+### Constructor
+
+**`GenericRepository(DbContext context)`**
+Creates a repository instance with the given EF Core context.
+
+```csharp
+var repository = new GenericRepository<User>(dbContext);
+```
+
+---
+
+### Create Methods
+
+**`void Add(E entity)`**
+Adds a single entity to the context.
+
+```csharp
+var user = new User { Name = "John" };
+repository.Add(user);
+repository.Save();
+```
+
+**`Task AddAsync(E entity)`**
+Asynchronously adds a single entity.
+
+```csharp
+var user = new User { Name = "Jane" };
+await repository.AddAsync(user);
+await repository.SaveAsync();
+```
+
+**`void AddRange(IEnumerable<E> entities)`**
+Adds multiple entities.
+
+```csharp
+var users = new List<User> {
+    new User { Name = "Alice" },
+    new User { Name = "Bob" }
+};
+repository.AddRange(users);
+repository.Save();
+```
+
+**`Task AddRangeAsync(IEnumerable<E> entities)`**
+Asynchronously adds multiple entities.
+
+```csharp
+var users = new List<User> {
+    new User { Name = "Charlie" },
+    new User { Name = "Diana" }
+};
+await repository.AddRangeAsync(users);
+await repository.SaveAsync();
+```
+
+---
+
+### Read Methods
+
+**`int Count(Expression<Func<E, bool>>? filter = null)`**
+Returns the count of entities optionally filtered.
+
+```csharp
+int activeUserCount = repository.Count(u => u.IsActive);
+int totalUsers = repository.Count();
+```
+
+**`Task<int> CountAsync(Expression<Func<E, bool>>? filter = null)`**
+Asynchronously returns the count.
+
+```csharp
+int activeUserCount = await repository.CountAsync(u => u.IsActive);
+int totalUsers = await repository.CountAsync();
+```
+
+**`bool Exists(Expression<Func<E, bool>> filter)`**
+Checks if any entity matches the filter.
+
+```csharp
+bool hasAdmin = repository.Exists(u => u.Role == "Admin");
+```
+
+**`Task<bool> ExistsAsync(Expression<Func<E, bool>> filter)`**
+Async version.
+
+```csharp
+bool hasAdmin = await repository.ExistsAsync(u => u.Role == "Admin");
+```
+
+**`E? Find(Expression<Func<E, bool>>? filter = null, Func<IQueryable<E>, IQueryable<E>>? include = null)`**
+Finds a single entity optionally including navigation properties.
+
+```csharp
+var user = repository.Find(u => u.Email == "user@example.com", query => query.Include(u => u.Roles));
+```
+
+**`Task<E?> FindAsync(Expression<Func<E, bool>> filter, Func<IQueryable<E>, IQueryable<E>>? include = null)`**
+Async version.
+
+```csharp
+var user = await repository.FindAsync(u => u.Email == "user@example.com", query => query.Include(u => u.Roles));
+```
+
+**`IEnumerable<E> Get(Expression<Func<E, bool>>? filter = null, int pageNumber = 1, int pageSize = 10, Func<IQueryable<E>, IQueryable<E>>? include = null)`**
+Returns a paginated list optionally filtered and including related entities.
+
+```csharp
+var activeUsers = repository.Get(u => u.IsActive, pageNumber: 1, pageSize: 20);
+var usersWithRoles = repository.Get(include: query => query.Include(u => u.Roles));
+```
+
+**`Task<IEnumerable<E>> GetAsync(Expression<Func<E, bool>>? filter = null, int pageNumber = 1, int pageSize = 10, Func<IQueryable<E>, IQueryable<E>>? include = null)`**
+Async version.
+
+```csharp
+var activeUsers = await repository.GetAsync(u => u.IsActive, pageNumber: 1, pageSize: 20);
+```
+
+---
+
+### Update Methods
+
+**`void Update(E entity)`**
+Updates an entity.
+
+```csharp
+user.Name = "Updated Name";
+repository.Update(user);
+repository.Save();
+```
+
+**`Task UpdateAsync(E entity)`**
+Async version.
+
+```csharp
+user.Name = "Updated Name Async";
+await repository.UpdateAsync(user);
+await repository.SaveAsync();
+```
+
+---
+
+### Delete Methods
+
+**`void Remove(E entity)`**
+Removes a single entity.
+
+```csharp
+repository.Remove(user);
+repository.Save();
+```
+
+**`Task RemoveAsync(E entity)`**
+Async version.
+
+```csharp
+await repository.RemoveAsync(user);
+await repository.SaveAsync();
+```
+
+**`void RemoveRange(IEnumerable<E> entities)`**
+Removes multiple entities.
+
+```csharp
+repository.RemoveRange(usersToDelete);
+repository.Save();
+```
+
+**`Task RemoveRangeAsync(IEnumerable<E> entities)`**
+Async version.
+
+```csharp
+await repository.RemoveRangeAsync(usersToDelete);
+await repository.SaveAsync();
+```
+
+---
+
+### Save Changes
+
+**`void Save()`**
+Saves changes synchronously.
+
+```csharp
+repository.Save();
+```
+
+**`Task SaveAsync()`**
+Saves changes asynchronously.
+
+```csharp
+await repository.SaveAsync();
+```
+
 
