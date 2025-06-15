@@ -101,16 +101,32 @@ var users = await userRepository.GetAsync(u => u.IsActive);
 
 ---
 
-## 🧪 Sample Entity
+## 🧱 Base Entity Requirement
+
+In order to use the repository, your entities **must implement** the `IEntityBase` interface. The recommended pattern is to create a common base entity:
 
 ```csharp
-public class User : IEntityBase
+public class EntityBase : IEntityBase
 {
     public int Id { get; set; }
-    public string Username { get; set; } = string.Empty;
+    public DateTime CreatedAt { get; set; } = DateTime.Now;
+    public DateTime? UpdatedAt { get; set; }
+}
+```
+
+All your EF entities should then inherit from this base class:
+
+```csharp
+public class User : EntityBase
+{
+    public string Name { get; set; }
+    public string Email { get; set; }
+    public string? Password { get; set; }
     public bool IsActive { get; set; }
 }
 ```
+
+This ensures the repository correctly identifies the entity type and supports base-level properties like `Id`, `CreatedAt`, and `UpdatedAt`.
 
 ---
 
