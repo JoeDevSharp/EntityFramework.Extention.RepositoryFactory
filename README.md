@@ -136,9 +136,3 @@ RepositoryFactory.For.EntityFramework/
 
 This project is licensed under the MIT License.
 
-```
-
----
-
-¿Deseas que lo prepare también en formato `.md` descargable o quieres una versión en francés/español para la documentación de tu repositorio?
-```
