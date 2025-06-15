@@ -1,132 +1,217 @@
 # RepositoryFactory.EntityFramework
 
-A lightweight, generic repository abstraction over Entity Framework Core supporting both synchronous and asynchronous operations. Provides optional integration with `IServiceCollection`.
+**RepositoryFactory.EntityFramework** is a lightweight, generic repository framework designed to simplify data access with Entity Framework Core. It provides a robust abstraction layer that supports both synchronous and asynchronous operations, targeting maintainable and scalable enterprise-grade applications.
 
 ---
 
-## 📦 Features
+## Core Components
 
-* Generic repository pattern for any EF `DbContext`
-* Supports **CRUD**, pagination, includes, and expression filters
-* Both **sync** and **async** APIs
-* Defensive programming with exception handling
-* Optional integration via **DI extensions**
+### 1. **GenericRepository\<E>**
+
+* Implements a generic repository pattern for any Entity Framework entity `E` constrained by `IEntityBase`.
+* Supports comprehensive CRUD operations: Add, Update, Remove, Find, and Get with support for expression filters, eager loading (`include`), and pagination.
+* Includes both synchronous and asynchronous variants of all key methods, facilitating flexible integration into modern async workflows.
+* Enforces defensive programming with input validation and exception throwing to prevent runtime errors.
+* Designed for seamless integration with any EF `DbContext`.
+
+### 2. **RepositoryFactory\<C>**
+
+* A factory class to instantiate `GenericRepository<E>` instances bound to a single EF `DbContext` of type `C`.
+* Manages the lifecycle of the shared `DbContext`, implementing `IDisposable` for proper resource cleanup.
+* Simplifies repository creation by encapsulating the context and ensuring consistent repository instantiation.
 
 ---
 
-## 🛠 Installation
+## Key Features
 
-```bash
-dotnet add package RepositoryFactory.EntityFramework
-```
+* **Entity-agnostic:** Works with any entity implementing the `IEntityBase` interface.
+* **Sync & Async:** Full support for asynchronous programming patterns using `Task`-based methods.
+* **Flexible Querying:** Supports LINQ expressions for filtering, eager loading with `Func<IQueryable<E>, IQueryable<E>>` includes, and paginated retrieval.
+* **Safe Operations:** Throws explicit exceptions for invalid inputs such as null entities or empty collections.
+* **Scoped Context Management:** Factory pattern ensures efficient and safe reuse of EF `DbContext` instances.
 
 ---
 
-## 🔧 Interface
+## Typical Usage Scenario
 
 ```csharp
-public interface IGenericRepository<E> where E : class, IEntityBase
-```
+using var factory = new RepositoryFactory<MyDbContext>();
+var userRepository = factory.CreateRepository<User>();
 
-### Supports
-
-* `Add`, `AddRange`, `AddAsync`, `AddRangeAsync`
-* `Find`, `FindAsync`, `Get`, `GetAsync`
-* `Count`, `CountAsync`
-* `Exists`, `ExistsAsync`
-* `Update`, `UpdateAsync`
-* `Remove`, `RemoveRange`, `RemoveAsync`, `RemoveRangeAsync`
-* `Save`, `SaveAsync`
-
----
-
-## ⚙️ Usage
-
-### ✅ With `ServiceCollectionExtensions`
-
-#### 1. Register in `Program.cs`
-
-```csharp
-using JoeDevSharp.RepositoryFactory.EntityFramework.Extensions;
-using Microsoft.EntityFrameworkCore;
-using MyApp.Data;
-
-builder.Services.AddDbContext<MyAppContext>(options =>
-    options.UseSqlServer("your_connection_string"));
-
-builder.Services.AddRepositories(); // Registers GenericRepository<T>
-```
-
-#### 2. Inject in your services
-
-```csharp
-public class UserService
+// Check if user exists
+if (!userRepository.Exists(u => u.Name == "John Doe"))
 {
-    private readonly IGenericRepository<User> _userRepository;
+    userRepository.Add(new User { Name = "John Doe", Email = "john@example.com" });
+    userRepository.Save();
+}
 
-    public UserService(IGenericRepository<User> userRepository)
+// Retrieve and update
+var user = userRepository.Find(u => u.Name == "John Doe");
+if (user != null)
+{
+    user.Name = "John Doe Updated";
+    userRepository.Update(user);
+    userRepository.Save();
+}
+```
+
+---
+
+## Benefits for Software Engineers
+
+* Accelerates development by abstracting repetitive EF Core CRUD operations.
+* Promotes clean separation of concerns and testability.
+* Enables smooth migration and modernization of legacy data access layers.
+* Supports future-proof asynchronous programming models.
+* Facilitates enterprise scalability through pagination and filtered queries.
+
+---
+
+If you seek a pragmatic, extensible repository solution for your EF Core projects that balances simplicity and functionality, **RepositoryFactory.EntityFramework** provides a solid foundation aligned with modern .NET best practices.
+
+---
+
+## Example: Using `RepositoryFactory` with Dependency Injection
+
+This example demonstrates how to configure and use the generic repository framework with a DI container (`IServiceCollection`), Entity Framework Core `DbContext`, and asynchronous operations.
+
+### Setup and Usage
+
+```csharp
+class Program
+{
+    static async Task Main(string[] args)
     {
-        _userRepository = userRepository;
-    }
+        // 1. Configure DI container
+        var services = new ServiceCollection();
 
-    public async Task<IEnumerable<User>> GetActiveUsersAsync()
+        // Register your EF Core DbContext
+        services.AddDbContext<AppDbContext>();
+
+        // Register RepositoryFactory and GenericRepository with DI
+        services.AddRepositoryFactory<AppDbContext>();
+
+        // Build the service provider
+        var serviceProvider = services.BuildServiceProvider();
+
+        // 2. Resolve the generic repository from DI
+        var userRepository = serviceProvider.GetRequiredService<IGenericRepository<User>>();
+
+        // 3. Check if a user exists asynchronously
+        var exists = await userRepository.ExistsAsync(u => u.Name == "John Doe");
+
+        // 4. Add a new user if not exists
+        if (!exists)
+        {
+            await userRepository.AddAsync(new User { Name = "John Doe", Email = "john@example.com" });
+            await userRepository.SaveAsync();
+        }
+
+        // 5. Retrieve the user and update asynchronously
+        var user = await userRepository.FindAsync(u => u.Name == "John Doe");
+        if (user != null)
+        {
+            user.Name = "John Doe Updated";
+            userRepository.Update(user);
+            await userRepository.SaveAsync();
+        }
+
+        // 6. Output the updated user's name
+        Console.WriteLine($"User updated: {user?.Name}");
+    }
+}
+```
+
+### Explanation
+
+* **Dependency Injection Setup:**
+
+  * Registers the EF Core `AppDbContext` with the DI container.
+  * Registers the `RepositoryFactory<AppDbContext>` and generic repositories via `AddRepositoryFactory<TContext>()` extension method.
+
+* **Repository Resolution:**
+  Retrieves an instance of `IGenericRepository<User>` from the DI container, enabling repository usage without manual instantiation.
+
+* **CRUD Operations:**
+
+  * Uses `ExistsAsync` to check if the user "John Doe" exists.
+  * If not, adds the user asynchronously and saves changes.
+  * Finds the user asynchronously, updates the name, and saves the changes.
+
+* **Asynchronous Pattern:**
+  All database calls are awaited to ensure non-blocking execution, following best practices for EF Core in modern applications.
+
+---
+
+This pattern ensures clean separation of concerns, testability, and scalability, leveraging DI and async features efficiently.
+
+---
+
+## Example: Using `RepositoryFactory` Without Dependency Injection
+
+This example shows how to use the generic repository framework manually, without relying on a DI container. It demonstrates synchronous CRUD operations with a direct instantiation of `RepositoryFactory` and repositories.
+
+### Code Example
+
+```csharp
+internal class Program
+{
+    static void Main(string[] args)
     {
-        return await _userRepository.GetAsync(u => u.IsActive);
+        // 1. Create a repository factory with your DbContext type
+        var factory = new RepositoryFactory<AppContext>();
+
+        // 2. Create a repository for the entity type User
+        var userRepository = factory.CreateRepository<User>();
+
+        // 3. Check synchronously if a user named "John Doe" exists
+        var exist = userRepository.Exists(u => u.Name == "John Doe");
+
+        // 4. If not existing, add the user and save changes
+        if (exist is false)
+        {
+            userRepository.Add(new User { Name = "John Doe", Email = "" });
+            userRepository.Save();
+        }
+
+        // 5. Find the user synchronously
+        User? user = userRepository.Find(u => u.Name == "John Doe");
+
+        if (user is null)
+            return;
+
+        // 6. Update the user and save changes
+        user.Name = "John Doe Updated";
+        userRepository.Update(user);
+        userRepository.Save();
+
+        // 7. Output the existence check result
+        Console.WriteLine($"User exists: {exist}");
     }
 }
 ```
 
----
+### Explanation
 
-### 🧩 Without DI (`ServiceCollectionExtensions`)
+* **Manual Instantiation:**
+  `RepositoryFactory<AppContext>` is instantiated directly, managing the lifecycle of the `DbContext`.
 
-#### 1. Instantiate manually
+* **Synchronous Operations:**
+  The example uses synchronous methods `Exists`, `Add`, `Find`, `Update`, and `Save` to perform CRUD operations.
 
-```csharp
-using JoeDevSharp.RepositoryFactory.EntityFramework.Core;
-using Microsoft.EntityFrameworkCore;
-using MyApp.Data;
+* **Workflow:**
 
-var context = new MyAppContext();
-var userRepository = new GenericRepository<User>(context);
+  * Check if a user named "John Doe" exists in the database.
+  * If not, create and save a new user.
+  * Retrieve the user, update their name, and persist changes.
+  * Finally, print whether the user existed before.
 
-var users = userRepository.Get(u => u.IsActive);
-```
-
-#### 2. Async version
-
-```csharp
-var users = await userRepository.GetAsync(u => u.IsActive);
-```
+* **Use Case:**
+  Useful in simple console apps or legacy projects where DI is not used or available.
 
 ---
 
-## 🧱 Base Entity Requirement
-
-In order to use the repository, your entities **must implement** the `IEntityBase` interface. The recommended pattern is to create a common base entity:
-
-```csharp
-public class EntityBase : IEntityBase
-{
-    public int Id { get; set; }
-    public DateTime CreatedAt { get; set; } = DateTime.Now;
-    public DateTime? UpdatedAt { get; set; }
-}
-```
-
-All your EF entities should then inherit from this base class:
-
-```csharp
-public class User : EntityBase
-{
-    public string Name { get; set; }
-    public string Email { get; set; }
-    public string? Password { get; set; }
-    public bool IsActive { get; set; }
-}
-```
-
-This ensures the repository correctly identifies the entity type and supports base-level properties like `Id`, `CreatedAt`, and `UpdatedAt`.
+This straightforward approach enables quick adoption of the repository pattern with minimal setup but lacks the flexibility and testability benefits provided by DI.
 
 ---
 
@@ -140,3 +225,4 @@ This ensures the repository correctly identifies the entity type and supports ba
 * **PostgreSQL**
 
 Make sure the correct EF Core provider NuGet package is installed and properly configured in your application.
+
