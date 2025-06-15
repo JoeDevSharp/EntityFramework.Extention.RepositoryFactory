@@ -8,6 +8,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="MySql.EntityFrameworkCore" Version="9.0.3" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\JoeDevSharp.RepositoryFactory.EntityFramework\JoeDevSharp.RepositoryFactory.EntityFramework.csproj" />
   </ItemGroup>
 
