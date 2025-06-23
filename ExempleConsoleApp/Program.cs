@@ -1,5 +1,5 @@
 ﻿using ExempleConsoleApp.Entities;
-using JoeDevSharp.RepositoryFactory.EntityFramework.Core;
+using EntityFramework.Extention.RepositoryFactory.Core;
 
 namespace ExempleConsoleApp
 {

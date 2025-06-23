@@ -1,4 +1,4 @@
-﻿using JoeDevSharp.RepositoryFactory.EntityFramework.Interfaces;
+﻿using EntityFramework.Extention.RepositoryFactory.Interfaces;
 
 namespace ExempleConsoleApp.Entities
 {

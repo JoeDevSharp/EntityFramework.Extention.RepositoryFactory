@@ -12,7 +12,7 @@ namespace ExempleConsoleApp
         }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseMySQL($"server=localhost;database=JoeDevSharp.RepositoryFactory.EntityFramework;user=root;password=root;");
+            optionsBuilder.UseMySQL($"server=localhost;database=EntityFramework.Extention.RepositoryFactory;user=root;password=root;");
         }
     }
 }

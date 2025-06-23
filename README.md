@@ -1,6 +1,6 @@
-# RepositoryFactory.EntityFramework
+# EntityFramework.Extention.RepositoryFactory
 
-**RepositoryFactory.EntityFramework** is a lightweight, generic repository framework designed to simplify data access with Entity Framework Core. It provides a robust abstraction layer that supports both synchronous and asynchronous operations, targeting maintainable and scalable enterprise-grade applications.
+**EntityFramework.Extention.RepositoryFactory** is a lightweight, generic repository framework designed to simplify data access with Entity Framework Core. It provides a robust abstraction layer that supports both synchronous and asynchronous operations, targeting maintainable and scalable enterprise-grade applications.
 
 ---
 
@@ -8,27 +8,27 @@
 
 ### 1. **GenericRepository\<E>**
 
-* Implements a generic repository pattern for any Entity Framework entity `E` constrained by `IEntityBase`.
-* Supports comprehensive CRUD operations: Add, Update, Remove, Find, and Get with support for expression filters, eager loading (`include`), and pagination.
-* Includes both synchronous and asynchronous variants of all key methods, facilitating flexible integration into modern async workflows.
-* Enforces defensive programming with input validation and exception throwing to prevent runtime errors.
-* Designed for seamless integration with any EF `DbContext`.
+- Implements a generic repository pattern for any Entity Framework entity `E` constrained by `IEntityBase`.
+- Supports comprehensive CRUD operations: Add, Update, Remove, Find, and Get with support for expression filters, eager loading (`include`), and pagination.
+- Includes both synchronous and asynchronous variants of all key methods, facilitating flexible integration into modern async workflows.
+- Enforces defensive programming with input validation and exception throwing to prevent runtime errors.
+- Designed for seamless integration with any EF `DbContext`.
 
 ### 2. **RepositoryFactory\<C>**
 
-* A factory class to instantiate `GenericRepository<E>` instances bound to a single EF `DbContext` of type `C`.
-* Manages the lifecycle of the shared `DbContext`, implementing `IDisposable` for proper resource cleanup.
-* Simplifies repository creation by encapsulating the context and ensuring consistent repository instantiation.
+- A factory class to instantiate `GenericRepository<E>` instances bound to a single EF `DbContext` of type `C`.
+- Manages the lifecycle of the shared `DbContext`, implementing `IDisposable` for proper resource cleanup.
+- Simplifies repository creation by encapsulating the context and ensuring consistent repository instantiation.
 
 ---
 
 ## Key Features
 
-* **Entity-agnostic:** Works with any entity implementing the `IEntityBase` interface.
-* **Sync & Async:** Full support for asynchronous programming patterns using `Task`-based methods.
-* **Flexible Querying:** Supports LINQ expressions for filtering, eager loading with `Func<IQueryable<E>, IQueryable<E>>` includes, and paginated retrieval.
-* **Safe Operations:** Throws explicit exceptions for invalid inputs such as null entities or empty collections.
-* **Scoped Context Management:** Factory pattern ensures efficient and safe reuse of EF `DbContext` instances.
+- **Entity-agnostic:** Works with any entity implementing the `IEntityBase` interface.
+- **Sync & Async:** Full support for asynchronous programming patterns using `Task`-based methods.
+- **Flexible Querying:** Supports LINQ expressions for filtering, eager loading with `Func<IQueryable<E>, IQueryable<E>>` includes, and paginated retrieval.
+- **Safe Operations:** Throws explicit exceptions for invalid inputs such as null entities or empty collections.
+- **Scoped Context Management:** Factory pattern ensures efficient and safe reuse of EF `DbContext` instances.
 
 ---
 
@@ -59,15 +59,15 @@ if (user != null)
 
 ## Benefits for Software Engineers
 
-* Accelerates development by abstracting repetitive EF Core CRUD operations.
-* Promotes clean separation of concerns and testability.
-* Enables smooth migration and modernization of legacy data access layers.
-* Supports future-proof asynchronous programming models.
-* Facilitates enterprise scalability through pagination and filtered queries.
+- Accelerates development by abstracting repetitive EF Core CRUD operations.
+- Promotes clean separation of concerns and testability.
+- Enables smooth migration and modernization of legacy data access layers.
+- Supports future-proof asynchronous programming models.
+- Facilitates enterprise scalability through pagination and filtered queries.
 
 ---
 
-If you seek a pragmatic, extensible repository solution for your EF Core projects that balances simplicity and functionality, **RepositoryFactory.EntityFramework** provides a solid foundation aligned with modern .NET best practices.
+If you seek a pragmatic, extensible repository solution for your EF Core projects that balances simplicity and functionality, **EntityFramework.Extention.RepositoryFactory** provides a solid foundation aligned with modern .NET best practices.
 
 ---
 
@@ -124,21 +124,21 @@ class Program
 
 ### Explanation
 
-* **Dependency Injection Setup:**
+- **Dependency Injection Setup:**
 
-  * Registers the EF Core `AppDbContext` with the DI container.
-  * Registers the `RepositoryFactory<AppDbContext>` and generic repositories via `AddRepositoryFactory<TContext>()` extension method.
+  - Registers the EF Core `AppDbContext` with the DI container.
+  - Registers the `RepositoryFactory<AppDbContext>` and generic repositories via `AddRepositoryFactory<TContext>()` extension method.
 
-* **Repository Resolution:**
+- **Repository Resolution:**
   Retrieves an instance of `IGenericRepository<User>` from the DI container, enabling repository usage without manual instantiation.
 
-* **CRUD Operations:**
+- **CRUD Operations:**
 
-  * Uses `ExistsAsync` to check if the user "John Doe" exists.
-  * If not, adds the user asynchronously and saves changes.
-  * Finds the user asynchronously, updates the name, and saves the changes.
+  - Uses `ExistsAsync` to check if the user "John Doe" exists.
+  - If not, adds the user asynchronously and saves changes.
+  - Finds the user asynchronously, updates the name, and saves the changes.
 
-* **Asynchronous Pattern:**
+- **Asynchronous Pattern:**
   All database calls are awaited to ensure non-blocking execution, following best practices for EF Core in modern applications.
 
 ---
@@ -193,20 +193,20 @@ internal class Program
 
 ### Explanation
 
-* **Manual Instantiation:**
+- **Manual Instantiation:**
   `RepositoryFactory<AppContext>` is instantiated directly, managing the lifecycle of the `DbContext`.
 
-* **Synchronous Operations:**
+- **Synchronous Operations:**
   The example uses synchronous methods `Exists`, `Add`, `Find`, `Update`, and `Save` to perform CRUD operations.
 
-* **Workflow:**
+- **Workflow:**
 
-  * Check if a user named "John Doe" exists in the database.
-  * If not, create and save a new user.
-  * Retrieve the user, update their name, and persist changes.
-  * Finally, print whether the user existed before.
+  - Check if a user named "John Doe" exists in the database.
+  - If not, create and save a new user.
+  - Retrieve the user, update their name, and persist changes.
+  - Finally, print whether the user existed before.
 
-* **Use Case:**
+- **Use Case:**
   Useful in simple console apps or legacy projects where DI is not used or available.
 
 ---
@@ -217,15 +217,15 @@ This straightforward approach enables quick adoption of the repository pattern w
 
 ## 🌐 Database Provider Compatibility
 
-`RepositoryFactory.EntityFramework` is compatible with the following Entity Framework Core providers:
+`EntityFramework.Extention.RepositoryFactory` is compatible with the following Entity Framework Core providers:
 
-* **SQL Server**
-* **SQLite**
-* **MySQL**
-* **PostgreSQL**
+- **SQL Server**
+- **SQLite**
+- **MySQL**
+- **PostgreSQL**
 
-Make sure the correct EF Core provider NuGet package is installed and properly configured in your application.
----
+## Make sure the correct EF Core provider NuGet package is installed and properly configured in your application.
+
 Por supuesto, aquí tienes la documentación de los métodos con ejemplos de uso para cada uno, en inglés y con un estilo profesional y claro:
 
 ---
@@ -429,5 +429,3 @@ Saves changes asynchronously.
 ```csharp
 await repository.SaveAsync();
 ```
-
-

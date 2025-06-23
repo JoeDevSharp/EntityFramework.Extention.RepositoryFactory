@@ -8,7 +8,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\JoeDevSharp.RepositoryFactory.EntityFramework\JoeDevSharp.RepositoryFactory.EntityFramework.csproj" />
+    <ProjectReference Include="..\EntityFramework.Extention.RepositoryFactory\EntityFramework.Extention.RepositoryFactory.csproj" />
   </ItemGroup>
 
 </Project>

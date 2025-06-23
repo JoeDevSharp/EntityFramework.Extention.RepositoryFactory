@@ -1,6 +1,6 @@
 ﻿using System.Linq.Expressions;
 
-namespace JoeDevSharp.RepositoryFactory.EntityFramework.Interfaces
+namespace EntityFramework.Extention.RepositoryFactory.Interfaces
 {
     /// <summary>
     /// Generic contract for repository operations supporting basic CRUD operations,

@@ -1,4 +1,4 @@
-﻿namespace JoeDevSharp.RepositoryFactory.EntityFramework.Interfaces
+﻿namespace EntityFramework.Extention.RepositoryFactory.Interfaces
 {
     public interface IEntityBase
     {

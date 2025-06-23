@@ -1,9 +1,9 @@
-﻿using JoeDevSharp.RepositoryFactory.EntityFramework.Core;
-using JoeDevSharp.RepositoryFactory.EntityFramework.Interfaces;
+﻿using EntityFramework.Extention.RepositoryFactory.Core;
+using EntityFramework.Extention.RepositoryFactory.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace JoeDevSharp.RepositoryFactory.EntityFramework.Extensions
+namespace EntityFramework.Extention.RepositoryFactory.Extensions
 {
     public static class ServiceCollectionExtensions
     {

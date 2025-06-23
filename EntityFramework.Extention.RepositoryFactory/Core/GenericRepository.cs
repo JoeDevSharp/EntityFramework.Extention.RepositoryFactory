@@ -1,8 +1,8 @@
-﻿using JoeDevSharp.RepositoryFactory.EntityFramework.Interfaces;
+﻿using EntityFramework.Extention.RepositoryFactory.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using System.Linq.Expressions;
 
-namespace JoeDevSharp.RepositoryFactory.EntityFramework.Core
+namespace EntityFramework.Extention.RepositoryFactory.Core
 {
     /// <summary>
     /// Generic repository implementation for Entity Framework, supporting both sync and async operations.

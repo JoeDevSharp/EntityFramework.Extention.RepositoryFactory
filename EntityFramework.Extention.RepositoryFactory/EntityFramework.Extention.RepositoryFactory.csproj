@@ -5,20 +5,22 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
-    <Title>$(AssemblyName)</Title>
+    <Title>JoeDevSharp.$(AssemblyName)</Title>
     <Version>1.0.0</Version>
     <Company>JoeDevSharp</Company>
     <Product>RepositoryFactory</Product>
     <Description>RepositoryFactory.EntityFramework is a lightweight, generic repository framework designed to simplify data access with Entity Framework Core. It provides a robust abstraction layer that supports both synchronous and asynchronous operations, targeting maintainable and scalable enterprise-grade applications.</Description>
     <PackageProjectUrl>https://github.com/JoeDevSharp/RepositoryFactory.EntityFramework</PackageProjectUrl>
-    <PackageIcon>JoeDevSharp.RepositoryFactory.EntityFramework.logo.png</PackageIcon>
+    <PackageIcon>EntityFramework.Extention.icon.png</PackageIcon>
     <PackageReadmeFile>README.md</PackageReadmeFile>
     <RepositoryUrl>https://github.com/JoeDevSharp/RepositoryFactory.EntityFramework</RepositoryUrl>
     <PackageTags>EntityFramework, RepositoryPattern, GenericRepository, Async, Synchronous, CRUD, DataAccess, ORM, EFCore, CSharp, .NET, Pagination, LINQ, Database, SoftwareEngineering, CleanArchitecture, DomainDrivenDesign, EFCoreRepository, DataLayer, RepositoryFactory</PackageTags>
+    <PackageId>JoeDevSharp.$(AssemblyName)</PackageId>
+    <Authors>JoeDevSharp</Authors>
   </PropertyGroup>
 
   <ItemGroup>
-    <None Include="..\..\..\..\Downloads\JoeDevSharp.RepositoryFactory.EntityFramework.logo.png">
+    <None Include="..\..\..\..\iCloudDrive\JoeDev\Logos\EntityFramework.Extention.icon.png">
       <Pack>True</Pack>
       <PackagePath>\</PackagePath>
     </None>

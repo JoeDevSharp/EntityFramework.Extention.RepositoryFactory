@@ -1,7 +1,7 @@
-﻿using JoeDevSharp.RepositoryFactory.EntityFramework.Interfaces;
+﻿using EntityFramework.Extention.RepositoryFactory.Interfaces;
 using Microsoft.EntityFrameworkCore;
 
-namespace JoeDevSharp.RepositoryFactory.EntityFramework.Core
+namespace EntityFramework.Extention.RepositoryFactory.Core
 {
     public class RepositoryFactory<C> : IDisposable where C : DbContext, new()
     {
